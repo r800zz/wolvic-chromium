@@ -1,21 +1,49 @@
-# ![Logo](chrome/app/theme/chromium/product_logo_64.png) Chromium
+# wolvic-chromium
 
-Chromium is an open-source browser project that aims to build a safer, faster,
-and more stable way for all users to experience the web.
+Modified Wolvic Chromium source used by **R800ZZbrowser**.
 
-The project's web site is https://www.chromium.org.
+This repository is a fork of **Igalia/wolvic-chromium** and contains additional modifications for R800ZZbrowser.
 
-To check out the source code locally, don't use `git clone`! Instead,
-follow [the instructions on how to get the code](docs/get_the_code.md).
+## Main Modification
 
-Documentation in the source is rooted in [docs/README.md](docs/README.md).
+### Fix for HTML `<select>` popup
 
-Learn how to [Get Around the Chromium Source Code Directory
-Structure](https://www.chromium.org/developers/how-tos/getting-around-the-chrome-source-code).
+This version fixes a problem where the popup for an HTML `<select>` element does not appear in the Wolvic Chromium backend.
 
-For historical reasons, there are some small top level directories. Now the
-guidance is that new top level directories are for product (e.g. Chrome,
-Android WebView, Ash). Even if these products have multiple executables, the
-code should be in subdirectories of the product.
+The modification is in:
 
-If you found a bug, please file it at https://crbug.com/new.
+```text
+content/browser/android/select_popup.cc
+```
+
+Wolvic uses its own `SelectPopup.Factory` UI and does not require an Android anchor View for the popup. The modified code therefore allows the select popup to continue even when an Android anchor View is not available.
+
+This fix is currently used in **R800ZZbrowser**.
+
+## Upstream
+
+This repository is based on:
+
+* Chromium: https://github.com/chromium/chromium
+* Igalia Wolvic Chromium: https://github.com/Igalia/wolvic-chromium
+* Wolvic: https://github.com/Igalia/wolvic
+
+## R800ZZbrowser
+
+R800ZZbrowser is a modified Wolvic-based web browser for standalone VR/MR headsets.
+
+Website:
+
+https://vr180g.com/browser/browser.php?l=en
+
+Main repository:
+
+https://github.com/r800zz/r800zzbrowser
+
+## License
+
+This repository is based on Chromium and Igalia's Wolvic Chromium fork.
+
+Chromium source code is distributed under the **BSD 3-Clause License** and other licenses applicable to third-party components.
+
+See the included license files and the license notices in individual source files and directories for details.
